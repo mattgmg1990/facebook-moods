@@ -34,10 +34,14 @@ def run_post_classifying_loop(access_token, search_term):
     response = graph.request("search", {'q': search_term, 'type': "post"})
     posts = response['data']
     for post in posts:
+        if 'message' not in post:
+            continue  
         post_text = post['message']
-        print post_text
+        print '\n' + post_text + '\n'
         classification = raw_input("Please classify this post (happy, sad, angry, in_love, or none): \n") 
+        print '\n'
         classify_post(post_text, classification)
+        print '\n NEXT FACEBOOK POST: \n \n'
     print "You've reached the end of the posts! Goodbye." 
 
 def classify_post(post_text, classification):
